@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBITALCARE Login</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: white;
+    background:
+        radial-gradient(circle at 15% 15%, #164e81, transparent 40%),
+        radial-gradient(circle at 90% 85%, #542b92, transparent 40%),
+        #060b18;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid #45648a;
+    background: #101827;
+    box-shadow: 0 20px 60px #0008;
+}
+
+.space {
+    min-height: 460px;
+    display: flex;
+    align-items: end;
+    padding: 25px;
+    background:
+        linear-gradient(#07142622, #07142666),
+        url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=900');
+    background-size: cover;
+    background-position: center;
+}
+
+.space h1 {
+    font-size: 29px;
+    line-height: 1.4;
+}
+
+.login {
+    padding: 35px 27px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo {
+    color: #53caff;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.small {
+    text-align: center;
+    color: #8ca2bd;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+p {
+    text-align: center;
+    color: #91a5bd;
+    font-size: 12px;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    color: #a9bad0;
+    margin: 20px 0 8px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    background: #0a1526;
+    color: white;
+    border: 1px solid #30445f;
+    border-radius: 8px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #53caff;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 25px;
+    background: linear-gradient(90deg, #28baf2, #7469f7);
+    border: 0;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.message {
+    color: #ff7777;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.footer {
+    text-align: center;
+    color: #7086a2;
+    font-size: 10px;
+    margin-top: 25px;
+}
+
+@media(max-width:600px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .space {
+        min-height: 190px;
+    }
+
+    .space h1 {
+        font-size: 22px;
+    }
+
+    .login {
+        padding: 28px 23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Space Image Section -->
+    <div class="space">
+        <h1>
+            EXPLORE<br>
+            BEYOND EARTH<br>
+            <span style="color:#54d5ff">
+                MISSION ORBIT-07
+            </span>
+        </h1>
+    </div>
+
+    <!-- Login Section -->
+    <div class="login">
+
+        <div class="logo">✦ ORBITALCARE</div>
+
+        <div class="small">
+            ASTRONAUT HEALTH INTELLIGENCE
+        </div>
+
+        <h2>Welcome Back</h2>
+
+        <p>Login to your mission control workspace.</p>
+
+        <!-- Flask Error Messages -->
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <div class="message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <!-- Flask Login Form -->
+        <form method="POST" action="{{ url_for('login') }}">
+
+            <label for="email">Email Address</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit">
+                SIGN IN →
+            </button>
+
+        </form>
+
+        <div class="footer">
+            SECURE SPACE MISSION ACCESS
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

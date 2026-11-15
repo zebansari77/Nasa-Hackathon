@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health Monitoring | ORBITALCARE</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: white;
+    background:
+        radial-gradient(circle at 80% 0%, #263c91, transparent 35%),
+        radial-gradient(circle at 10% 90%, #38216e, transparent 35%),
+        #080d1d;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+}
+
+/* Navigation Bar */
+.navbar {
+    max-width: 1050px;
+    margin: 0 auto 25px;
+    background: #101e32;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border: 1px solid #263b55;
+    border-radius: 12px;
+}
+
+.navbar h2 {
+    color: #55d6ff;
+    margin: 0;
+    font-size: 21px;
+}
+
+.navbar nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.navbar nav a {
+    text-align: center;
+    padding: 11px 15px;
+    text-decoration: none;
+    color: white;
+    background: #ffffff12;
+    border: 1px solid #ffffff25;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.navbar nav a:hover {
+    background: #263c60;
+    color: #55d6ff;
+}
+
+header:not(.navbar) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #53d6ff;
+}
+
+.online {
+    color: #65edbd;
+    border: 1px solid #347b70;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+}
+
+h1 {
+    font-size: 27px;
+    margin: 12px 0 7px;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+h3 {
+    font-size: 15px;
+}
+
+.sub {
+    font-size: 12px;
+    color: #9eafcd;
+    line-height: 1.6;
+}
+
+.card {
+    background: linear-gradient(135deg, #ffffff20, #ffffff08);
+    border: 1px solid #ffffff30;
+    backdrop-filter: blur(14px);
+    border-radius: 17px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 10px 35px #0004;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    margin: 18px 0;
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.label {
+    font-size: 11px;
+    color: #a9bad5;
+}
+
+.metric {
+    font-size: 29px;
+    font-weight: bold;
+    margin: 13px 0;
+}
+
+.blue { color: #55d9ff; }
+.green { color: #66edb9; }
+.purple { color: #bd9aff; }
+.orange { color: #ffc46e; }
+
+select, input {
+    width: 100%;
+    padding: 13px;
+    background: #091629;
+    color: white;
+    border: 1px solid #40516c;
+    border-radius: 8px;
+    margin-top: 9px;
+}
+
+button {
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 9px;
+    background: linear-gradient(100deg, #31c8f4, #8b72fa);
+    color: #07111f;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.secondary {
+    background: #1a2d4c;
+    border: 1px solid #49628c;
+    color: white;
+}
+
+.progress {
+    height: 8px;
+    background: #ffffff20;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+.progress span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #36d7ef, #a17aff);
+}
+
+.chart {
+    height: 145px;
+    display: flex;
+    align-items: end;
+    gap: 12px;
+    padding: 10px 4px 0;
+    border-bottom: 1px solid #ffffff30;
+}
+
+.chart i {
+    flex: 1;
+    border-radius: 7px 7px 0 0;
+    background: linear-gradient(#ad83ff, #3bcafa);
+}
+
+.days {
+    display: flex;
+    justify-content: space-between;
+    color: #aab5d0;
+    font-size: 10px;
+    margin-top: 9px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ffffff20;
+    font-size: 12px;
+}
+
+.result {
+    display: none;
+    margin-top: 18px;
+    border: 1px solid #3e987d;
+    background: #12372e88;
+    padding: 17px;
+    border-radius: 12px;
+}
+
+.alert {
+    background: #ffffff10;
+    border-left: 3px solid #ffbd69;
+    padding: 13px;
+    border-radius: 7px;
+    font-size: 12px;
+    margin-top: 13px;
+}
+
+footer {
+    text-align: center;
+    color: #9eafcd;
+    font-size: 12px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+@media(max-width:650px) {
+    body {
+        padding: 14px;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar nav {
+        justify-content: center;
+    }
+
+    .navbar nav a {
+        padding: 10px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid2 {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<header class="navbar">
+    <h2>🚀 ORBITALCARE</h2>
+
+    <nav>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('health') }}">Health Monitoring</a>
+        <a href="{{ url_for('history') }}">History</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+<!-- Mission Header -->
+<header>
+    <div class="logo">✦ ORBITAL<span>CARE</span></div>
+    <div class="online">● MONITORING ACTIVE</div>
+</header>
+
+<p class="sub blue">MISSION CONTROL / HEALTH INTELLIGENCE</p>
+
+<h1>Health Monitoring</h1>
+
+<p class="sub">
+    Astronaut physiological readings and simulated health analysis.
+</p>
+
+<!-- Astronaut Selection -->
+<div class="card">
+    <h3>👨‍🚀 Select Astronaut</h3>
+
+    <select>
+        <option>Alex Morgan · AST-024</option>
+        <option>Sam Rivera · AST-018</option>
+        <option>Jordan Lee · AST-031</option>
+    </select>
+
+    <p class="sub">Mission ID: ORBIT-07</p>
+</div>
+
+<!-- Health Metrics -->
+<div class="grid">
+
+    <div class="card">
+        <div class="label">♡ HEART RATE</div>
+        <div class="metric blue">72</div>
+        <span class="sub">BPM · Sample</span>
+    </div>
+
+    <div class="card">
+        <div class="label">◉ OXYGEN LEVEL</div>
+        <div class="metric green">98%</div>
+        <span class="sub">SpO₂ · Sample</span>
+    </div>
+
+    <div class="card">
+        <div class="label">♨ BODY TEMP.</div>
+        <div class="metric orange">36.8°</div>
+        <span class="sub">Celsius · Sample</span>
+    </div>
+
+    <div class="card">
+        <div class="label">✚ BLOOD PRESSURE</div>
+        <div class="metric purple">118/78</div>
+        <span class="sub">mmHg · Sample</span>
+    </div>
+
+</div>
+
+<!-- Analytics -->
+<div class="grid2">
+
+    <div class="card">
+        <h3>Heart Rate Analytics</h3>
+        <p class="sub">Last 12 hours · Sample data</p>
+
+        <div class="chart">
+            <i style="height:45%"></i>
+            <i style="height:60%"></i>
+            <i style="height:52%"></i>
+            <i style="height:75%"></i>
+            <i style="height:65%"></i>
+            <i style="height:82%"></i>
+            <i style="height:72%"></i>
+        </div>
+
+        <div class="days">
+            <span>00:00</span>
+            <span>04:00</span>
+            <span>08:00</span>
+            <span>12:00</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Oxygen Monitoring</h3>
+
+        <div class="metric green">98%</div>
+
+        <div class="progress">
+            <span style="width:98%"></span>
+        </div>
+
+        <p class="sub">Latest sample reading</p>
+
+        <div class="row">
+            <span>Temperature</span>
+            <b>36.8°C</b>
+        </div>
+
+        <div class="row">
+            <span>Heart rate</span>
+            <b>72 BPM</b>
+        </div>
+    </div>
+
+</div>
+
+<!-- Simulated Analysis -->
+<div class="card">
+
+    <h2 class="purple">✧ AI / ML Analysis</h2>
+
+    <p class="sub">
+        Demonstration of anomaly detection and astronaut health-risk analysis.
+        This is simulated output, not a trained machine learning model.
+    </p>
+
+    <div class="label">SELECT ANALYSIS TYPE</div>
+
+    <select id="model">
+        <option value="anomaly">Anomaly Detection</option>
+        <option value="risk">Health Risk Prediction</option>
+    </select>
+
+    <br><br>
+
+    <button onclick="runAnalysis()">
+        ▶ RUN DEMO ANALYSIS
+    </button>
+
+    <div class="result" id="result">
+
+        <h3 class="green">✓ Demo Analysis Completed</h3>
+
+        <div class="row">
+            <span>Analysis selected</span>
+            <b id="modelName">Anomaly Detection</b>
+        </div>
+
+        <div class="row">
+            <span>Sample anomalies detected</span>
+            <b>01</b>
+        </div>
+
+        <div class="row">
+            <span>Demo risk category</span>
+            <b class="green">Low</b>
+        </div>
+
+        <div class="row">
+            <span>Illustrative confidence</span>
+            <b>92%</b>
+        </div>
+
+        <div class="alert" style="border-color:#62e8b0">
+            Sample output: one reading flagged for review.
+            This is simulated output, not a medical assessment.
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Data Management -->
+<div class="card">
+
+    <h3>Data Management</h3>
+
+    <p class="sub">
+        Select a health-data CSV file for future backend integration.
+    </p>
+
+    <input type="file" accept=".csv">
+
+    <br><br>
+
+    <button class="secondary"
+        onclick="alert('Demo only. CSV processing is not connected yet.')">
+        UPLOAD HEALTH DATA
+    </button>
+
+</div>
+
+<footer>
+    ORBITALCARE | Astronaut Health Intelligence System
+    <br><br>
+    Hackathon prototype using simulated health readings.
+</footer>
+
+</div>
+
+<script>
+function runAnalysis() {
+    const model = document.getElementById("model");
+
+    document.getElementById("modelName").innerText =
+        model.options[model.selectedIndex].text;
+
+    document.getElementById("result").style.display = "block";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astronaut Dashboard</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ padding:20px;
+ font-family:Arial,sans-serif;
+ color:white;
+ background:
+ radial-gradient(circle at 50% 0%,#652bd5,transparent 35%),
+ radial-gradient(circle at 90% 90%,#174c9c,transparent 35%),
+ #08091d;
+}
+.container{max-width:1000px;margin:auto}
+header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:25px;
+}
+.logo{font-size:21px;font-weight:bold}
+.logo span{color:#70d9ff}
+.online{
+ color:#68f4c0;
+ font-size:10px;
+ border:1px solid #246e69;
+ padding:8px 12px;
+ border-radius:20px;
+}
+h1{font-size:27px;margin-bottom:5px}
+.sub{color:#a9a8d0;font-size:12px}
+.card{
+ background:linear-gradient(135deg,#ffffff20,#ffffff08);
+ border:1px solid #ffffff35;
+ backdrop-filter:blur(15px);
+ border-radius:17px;
+ padding:20px;
+ box-shadow:0 10px 35px #0004;
+ margin-bottom:15px;
+}
+.hero{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ background:linear-gradient(110deg,#5034ad99,#157cba66);
+}
+.hero h2{font-size:23px}
+.planet{font-size:65px}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:13px;
+ margin:17px 0;
+}
+.stat{text-align:center}
+.symbol{font-size:24px}
+.number{
+ font-size:29px;
+ font-weight:bold;
+ margin:12px 0 5px;
+}
+.stat small{color:#b4b7d7;font-size:11px}
+.green{color:#69f3bd}
+.yellow{color:#ffd078}
+.content{
+ display:grid;
+ grid-template-columns:1.4fr 1fr;
+ gap:15px;
+}
+h3{font-size:15px;margin:0 0 18px}
+.chart{
+ height:150px;
+ display:flex;
+ align-items:end;
+ gap:12px;
+ border-bottom:1px solid #ffffff35;
+ padding:10px 5px 0;
+}
+.bar{
+ flex:1;
+ border-radius:7px 7px 0 0;
+ background:linear-gradient(#b18aff,#37d8ff);
+ box-shadow:0 0 12px #9469ff66;
+}
+.days{
+ display:flex;
+ justify-content:space-between;
+ color:#aaaed0;
+ font-size:10px;
+ margin-top:10px;
+}
+.progress{
+ height:8px;
+ background:#ffffff25;
+ border-radius:20px;
+ overflow:hidden;
+ margin-top:12px;
+}
+.progress span{
+ display:block;
+ height:100%;
+ width:71%;
+ background:linear-gradient(90deg,#4be4db,#a78bfa);
+}
+.row{
+ display:flex;
+ justify-content:space-between;
+ margin:15px 0;
+ font-size:12px;
+}
+.alert{
+ padding:12px;
+ background:#ffffff10;
+ border-left:3px solid #ffbd69;
+ border-radius:8px;
+ margin-top:12px;
+ font-size:12px;
+}
+nav{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin-top:15px;
+}
+nav a{
+ text-align:center;
+ padding:14px 5px;
+ text-decoration:none;
+ color:#e7e8ff;
+ background:#ffffff12;
+ border:1px solid #ffffff20;
+ border-radius:11px;
+ font-size:11px;
+}
+nav a:hover{background:#704cbd}
+@media(max-width:650px){
+ body{padding:15px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .content{grid-template-columns:1fr}
+ .hero{padding:16px}
+ .planet{font-size:48px}
+ h1{font-size:23px}
+ nav{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+ <div class="logo">✦ ORBITAL<span>CARE</span></div>
+ <div class="online">● SYSTEM ACTIVE</div>
+</header>
+
+<p class="sub">MISSION CONTROL / OVERVIEW</p>
+<h1>Astronaut Dashboard</h1>
+<p class="sub">Welcome to your space mission control center.</p>
+
+<section class="card hero">
+ <div>
+  <div style="color:#70e9ff;font-size:10px;letter-spacing:2px">
+  CURRENT MISSION · ORBIT-07
+  </div>
+  <h2>Welcome to Space Control</h2>
+  <p class="sub">Monitoring crew wellness and mission status.</p>
+  <span class="green">● Mission On Track</span>
+ </div>
+ <div class="planet">🪐</div>
+</section>
+
+<div class="stats">
+
+ <div class="card stat">
+  <div class="symbol">👨‍🚀</div>
+  <div class="number">06</div>
+  <small>CREW MEMBERS</small>
+ </div>
+
+ <div class="card stat">
+  <div class="symbol">♡</div>
+  <div class="number">94%</div>
+  <small>HEALTH SCORE</small>
+ </div>
+
+ <div class="card stat">
+  <div class="symbol">⚠️</div>
+  <div class="number yellow">02</div>
+  <small>ACTIVE ALERTS</small>
+ </div>
+
+ <div class="card stat">
+  <div class="symbol">◷</div>
+  <div class="number">128</div>
+  <small>MISSION DAYS</small>
+ </div>
+
+</div>
+
+<div class="content">
+
+<section class="card">
+ <h3>✦ Crew Wellness Analytics</h3>
+ <p class="sub">Weekly health overview</p>
+
+ <div class="chart">
+  <div class="bar" style="height:48%"></div>
+  <div class="bar" style="height:65%"></div>
+  <div class="bar" style="height:55%"></div>
+  <div class="bar" style="height:78%"></div>
+  <div class="bar" style="height:68%"></div>
+  <div class="bar" style="height:90%"></div>
+  <div class="bar" style="height:82%"></div>
+ </div>
+
+ <div class="days">
+  <span>Mon</span><span>Tue</span><span>Wed</span>
+  <span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+ </div>
+</section>
+
+<section class="card">
+ <h3>🚀 Mission Progress</h3>
+ <div class="number">71%</div>
+ <p class="sub">Mission completion</p>
+
+ <div class="progress">
+  <span></span>
+ </div>
+
+ <div class="row"><span>Elapsed</span><b>128 days</b></div>
+ <div class="row"><span>Remaining</span><b>52 days</b></div>
+ <div class="row"><span>Status</span><b class="green">Active</b></div>
+</section>
+
+</div>
+
+<section class="card">
+ <h3>⚡ Recent Mission Alerts</h3>
+ <div class="alert">⚠️ Unusual sample heart-rate reading · Review required</div>
+ <div class="alert" style="border-color:#53dcb0">
+ ✓ Crew health data synchronization completed
+ </div>
+</section>
+
+<section class="card">
+ <h3>MISSION NAVIGATION</h3>
+
+<section class="card">
+    <h3>MISSION NAVIGATION</h3>
+
+    <nav>
+        <a href="{{ url_for('logout') }}">🔐<br><br>Logout</a>
+
+        <a href="{{ url_for('dashboard') }}">🚀<br><br>Dashboard</a>
+
+        <a href="{{ url_for('health') }}">♡<br><br>Health Monitoring</a>
+
+        <a href="{{ url_for('history') }}">◷<br><br>Health History</a>
+    </nav>
+</section>
+
+</div>
+</body>
+</html>

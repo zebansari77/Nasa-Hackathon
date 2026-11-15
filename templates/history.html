@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health History | ORBITALCARE</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: #eaf2ff;
+        }
+
+        header {
+            background: #101e32;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #263b55;
+        }
+
+        header h2 {
+            color: #55d6ff;
+        }
+
+        nav a {
+            color: #cbd8e8;
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #55d6ff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            color: #55d6ff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #9eafc5;
+            margin-bottom: 30px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #12243a;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #263d58;
+        }
+
+        .card h3 {
+            color: #a9bad0;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            font-size: 27px;
+            font-weight: bold;
+            color: #55d6ff;
+        }
+
+        .table-box {
+            background: #12243a;
+            border: 1px solid #263d58;
+            border-radius: 12px;
+            padding: 22px;
+            overflow-x: auto;
+        }
+
+        .table-box h2 {
+            margin-bottom: 20px;
+            font-size: 19px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #293d55;
+            font-size: 14px;
+        }
+
+        th {
+            color: #55d6ff;
+            background: #192d46;
+        }
+
+        td {
+            color: #d5e0ed;
+        }
+
+        .normal {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .alert {
+            color: #ff7777;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px;
+            color: #9eafc5;
+        }
+
+        footer {
+            text-align: center;
+            color: #8295ad;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 650px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 5px;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🚀 ORBITALCARE</h2>
+
+    <nav>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('health') }}">Health Monitoring</a>
+        <a href="{{ url_for('history') }}">History</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <h1>Health History & Alerts</h1>
+    <p class="subtitle">
+        Review previously submitted astronaut health readings.
+    </p>
+
+    <div class="stats">
+
+        <div class="card">
+            <h3>Total Records</h3>
+            <p>{{ records|length }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Normal Records</h3>
+            <p>
+                {% set normal_count = namespace(value=0) %}
+                {% for record in records %}
+                    {% if record['heart_rate']|float >= 60
+                    and record['heart_rate']|float <= 100
+                    and record['oxygen_level']|float >= 95
+                    and record['temperature']|float >= 36
+                    and record['temperature']|float <= 37.5 %}
+                        {% set normal_count.value = normal_count.value + 1 %}
+                    {% endif %}
+                {% endfor %}
+                {{ normal_count.value }}
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Alert Records</h3>
+            <p>
+                {% set alert_count = namespace(value=0) %}
+                {% for record in records %}
+                    {% if record['heart_rate']|float < 60
+                    or record['heart_rate']|float > 100
+                    or record['oxygen_level']|float < 95
+                    or record['temperature']|float < 36
+                    or record['temperature']|float > 37.5 %}
+                        {% set alert_count.value = alert_count.value + 1 %}
+                    {% endif %}
+                {% endfor %}
+                {{ alert_count.value }}
+            </p>
+        </div>
+
+    </div>
+
+    <div class="table-box">
+
+        <h2>📊 Astronaut Health Records</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date & Time</th>
+                    <th>Heart Rate</th>
+                    <th>Oxygen Level</th>
+                    <th>Temperature</th>
+                    <th>Blood Pressure</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for record in records %}
+
+                <tr>
+                    <td>{{ record['date_time'] }}</td>
+
+                    <td>{{ record['heart_rate'] }} bpm</td>
+
+                    <td>{{ record['oxygen_level'] }}%</td>
+
+                    <td>{{ record['temperature'] }} °C</td>
+
+                    <td>{{ record['blood_pressure'] }}</td>
+
+                    <td>
+                        {% if record['heart_rate']|float < 60
+                        or record['heart_rate']|float > 100
+                        or record['oxygen_level']|float < 95
+                        or record['temperature']|float < 36
+                        or record['temperature']|float > 37.5 %}
+
+                            <span class="alert">⚠ Alert</span>
+
+                        {% else %}
+
+                            <span class="normal">✓ Normal</span>
+
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="6" class="empty">
+                        No health records available yet.
+                        Submit your first health reading!
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<footer>
+    ORBITALCARE | Astronaut Health Intelligence System
+    <br><br>
+    Demo project using simulated health readings.
+</footer>
+
+</body>
+</html>
